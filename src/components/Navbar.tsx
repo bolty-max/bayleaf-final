@@ -77,42 +77,34 @@ const Navbar: React.FC = () => {
               </Link>
             ))}
             
-            {/* Language Toggle */}
-            <div className="flex items-center space-x-2">
-              <Globe size={18} className={scrolled ? 'text-gray-800' : 'text-white'} />
-              <button
-                onClick={() => toggleLanguage('en')}
-                className={`px-2 py-1 rounded-md text-sm transition-colors ${
-                  language === 'en' 
-                    ? 'bg-white text-spice-500 font-bold' 
-                    : `${scrolled ? 'text-gray-800' : 'text-white'} hover:text-spice-500`
-                }`}
-              >
-                EN
-              </button>
-              <button
-                onClick={() => toggleLanguage('de')}
-                className={`px-2 py-1 rounded-md text-sm transition-colors ${
-                  language === 'de' 
-                    ? 'bg-white text-spice-500 font-bold' 
-                    : `${scrolled ? 'text-gray-800' : 'text-white'} hover:text-spice-500`
-                }`}
-              >
-                DE
-              </button>
-            </div>
+            {/* Language Toggle Button */}
+            <button
+              onClick={toggleLanguage}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all ${
+                scrolled 
+                  ? 'bg-white text-gray-800 hover:bg-spice-50' 
+                  : 'bg-white/10 text-white hover:bg-white/20'
+              }`}
+            >
+              <Globe size={18} className="mr-2" />
+              <span className="font-medium">{language.toUpperCase()}</span>
+            </button>
             
-            <a 
-              href="#booking" 
+            <Link 
+              to="contact"
+              spy={true}
+              smooth={true}
+              offset={-80}
+              duration={800}
               className="btn-primary text-sm"
             >
               {translations.navbar.bookTable[language]}
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-white focus:outline-none"
+            className="md:hidden"
             onClick={toggleMenu}
             aria-label="Toggle mobile menu"
           >
@@ -126,7 +118,7 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-4 px-4 transition-all duration-300 ease-in-out">
+          <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-4 px-4">
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
                 <Link
@@ -144,43 +136,28 @@ const Navbar: React.FC = () => {
               ))}
               
               {/* Language Toggle for Mobile */}
-              <div className="flex items-center space-x-2 py-2">
-                <Globe size={18} className="text-gray-800" />
-                <button
-                  onClick={() => {
-                    toggleLanguage('en');
-                    closeMenu();
-                  }}
-                  className={`px-2 py-1 rounded-md text-sm transition-colors ${
-                    language === 'en' 
-                      ? 'bg-spice-500 text-white font-bold' 
-                      : 'text-gray-800 hover:text-spice-500'
-                  }`}
-                >
-                  EN
-                </button>
-                <button
-                  onClick={() => {
-                    toggleLanguage('de');
-                    closeMenu();
-                  }}
-                  className={`px-2 py-1 rounded-md text-sm transition-colors ${
-                    language === 'de' 
-                      ? 'bg-spice-500 text-white font-bold' 
-                      : 'text-gray-800 hover:text-spice-500'
-                  }`}
-                >
-                  DE
-                </button>
-              </div>
+              <button
+                onClick={() => {
+                  toggleLanguage();
+                  closeMenu();
+                }}
+                className="flex items-center space-x-2 py-2 px-4 rounded-full bg-gray-100 text-gray-800 hover:bg-gray-200 transition-all"
+              >
+                <Globe size={18} className="mr-2" />
+                <span className="font-medium">{language.toUpperCase()}</span>
+              </button>
               
-              <a 
-                href="#booking" 
+              <Link
+                to="contact"
+                spy={true}
+                smooth={true}
+                offset={-80}
+                duration={800}
                 className="btn-primary text-center"
                 onClick={closeMenu}
               >
                 {translations.navbar.bookTable[language]}
-              </a>
+              </Link>
             </div>
           </div>
         )}
